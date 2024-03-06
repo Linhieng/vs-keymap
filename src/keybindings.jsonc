@@ -42,7 +42,7 @@ vscode 的快捷键原则:
         // 清空 output 输出（需显示 output）
         "key": "ctrl+l ctrl+l",
         "command": "workbench.output.action.clearOutput",
-        "when": "activePanel == 'workbench.panel.output'"
+        "when": "workbench.panel.output.active"
     },
     {
         // 多选多行合并为一行
