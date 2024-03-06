@@ -1,0 +1,30 @@
+{
+    "name": "linhieng-keymap",
+    "publisher": "linhieng",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.87.0"
+    },
+    "displayName": "__ linhieng 自用快捷键",
+    "description": "个人积累的非常有用的快捷键",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Linhieng/vs-keymap.git"
+    },
+    "categories": [
+        "Keymaps"
+    ],
+    "contributes": {
+        "keybindings": []
+    },
+    "scripts": {
+        "package": "node build.cjs && cd dist && npx @vscode/vsce package",
+        "publish": "npm run package && cd dist && npx @vscode/vsce publish"
+    },
+    "vsce": {
+        "skipLicense": true
+    },
+    "devDependencies": {
+        "jsonc-parser": "^3.2.1"
+    }
+}
