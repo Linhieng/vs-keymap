@@ -87,7 +87,9 @@ vscode 的快捷键原则:
 									"when": "editorTextFocus && !editorReadonly",
 },
 // 聚焦到侧边文件栏。oem_3 表示 ` 按键
-{ "key": "alt+oem_3",				"command": "workbench.files.action.focusFilesExplorer",
+// workbench.files.action.focusFilesExplorer 只是聚焦到文件树
+// workbench.files.action.showActiveFileInExplorer 则是聚焦到文件树中的具体文件，更符合实际需求。
+{ "key": "alt+oem_3",				"command": "workbench.files.action.showActiveFileInExplorer",
 },
 
 ////////////////////////////////////////////////////////////////////////////////
