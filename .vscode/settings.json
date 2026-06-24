@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		// 使用 jsonl 格式可以省略不必要的警告，比如备注和末尾逗号
+		"keybindings.jsonc": "jsonl"
+	},
+
+}
