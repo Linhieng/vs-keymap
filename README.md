@@ -30,6 +30,7 @@
 | ctrl+pagedown         | workbench.action.nextEditor                 | 向右切换标签页                                                                                           |
 |                       |                                             |                                                                                                          |
 | ctrl+i                | editor.action.triggerSuggest                | 触发建议                                                                                                 |
+| ctrl+space            | editor.action.triggerSuggest                | 触发建议                                                                                             |
 | ctrl+shift+space      | editor.action.triggerParameterHints         | 触发参数提示                                                                                             |
 | ctrl+oem_period       | editor.action.quickFix                      | 快速修复，oem_period 是 `.` 按键                                                                         |
 | shift+alt+oem_period  | editor.action.autoFix                       | 自动修复                                                                                                 |
@@ -56,7 +57,7 @@
 | ctrl+k ctrl+s         | workbench.action.openGlobalKeybindings      | 查看快捷键                                                                                               |
 | ctrl+k ctrl+j         | editor.unfoldAll                            | 全部展开                                                                                                 |
 | ctrl+k ctrl+0         | editor.foldAll                              | 全部折叠                                                                                                 |
-| ctrl+k ctrl+l         | editor.toggleFold                           | 折叠/展开当前最近的“可展开折叠区域” |
+| ctrl+k ctrl+l         | editor.toggleFold                           | 折叠/展开当前最近的“可展开折叠区域”                                                                      |
 |                       |                                             |                                                                                                          |
 | ctrl+shift+\          | editor.action.jumpToBracket                 | 快速跳到配对的括号，比如 () [] {}                                                                        |
 | ctrl+shift+oem_period | breadcrumbs.focusAndSelect                  | 快速定位到 breadcrumbs 并选择，可以不借助鼠标来打开其他临近文件                                          |
