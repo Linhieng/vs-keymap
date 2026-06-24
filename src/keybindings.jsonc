@@ -7,96 +7,109 @@ vscode 的快捷键原则:
 	自定义的快捷键，应该是经常使用的！
 */
 [
-// 将变量名变成 snake_case 风格
+////////////////////////////////////////////////////////////////////////////////
+// ctrl+l 开头的自定义热键
+////////////////////////////////////////////////////////////////////////////////
+
+// 将变量名变成 snake_case 风格。无默认热键
 { "key": "ctrl+l ctrl+s",			"command": "editor.action.transformToSnakecase",
+									"when": "editorHasSelection",
 },
-// 将变量名变成 kebab-case 风格
+// 将变量名变成 kebab-case 风格。无默认热键
 { "key": "ctrl+l ctrl+k",			"command": "editor.action.transformToKebabcase",
+									"when": "editorHasSelection",
 },
-// 将变量名变为 camelCase 驼峰风格
+// 将变量名变为 camelCase 驼峰风格。无默认热键
 { "key": "ctrl+l ctrl+c",			"command": "editor.action.transformToCamelcase",
+									"when": "editorHasSelection",
 },
-// 首字母大写，结合 cameCase 可以实现 PascalCase 风格。
+// 首字母大写，结合 cameCase 可以实现 PascalCase 风格。无默认热键
 { "key": "ctrl+l ctrl+t",			"command": "editor.action.transformToTitlecase",
 									"when": "editorHasSelection",
 },
-// 切换为大写
+// 切换为大写。无默认热键
 { "key": "ctrl+l ctrl+b",			"command": "editor.action.transformToUppercase",
+									"when": "editorHasSelection",
 },
-// 切换为小写
+// 切换为小写。无默认热键
 { "key": "ctrl+l ctrl+m",			"command": "editor.action.transformToLowercase",
+									"when": "editorHasSelection",
 },
-// 清空 output 输出（需显示 output）
+// 清空 output 输出（需显示 output）。无默认热键
 { "key": "ctrl+l ctrl+l",			"command": "workbench.output.action.clearOutput",
 									"when": "workbench.panel.output.active",
 },
-// 多选多行合并为一行
+// 多行合并为一行。无默认热键
 { "key": "ctrl+l ctrl+j",			"command": "editor.action.joinLines",
+									"when": "editorHasSelection",
 },
-// md 中粘贴时始终粘贴为链接格式，故设置一个新快捷键来让其粘贴为普通文本
+// md 中粘贴时始终粘贴为链接格式，故设置一个新快捷键来让其粘贴为普通文本。无默认热键
+// 可考虑废弃❌，因为 vscode 有了 "markdown.editor.pasteUrlAsFormattedLink.enabled": "smartWithSelection" 配置
 { "key": "ctrl+l ctrl+v",			"command": "editor.action.pasteAs",
 									"when": "editorLangId == 'markdown'",
 									"args": { "id": "text" },
 },
 
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+// 使用频率很高的热键，不建议 ctrl+l 开头
 ////////////////////////////////////////////////////////////////////////////////
 
-// 新建标签页（无标题未保存文件）。 原快捷键是 ctrl+n ，但是 ctrl+t 和默认快捷键 ctrl+shift+t 搭配我觉得更合适，因为浏览器也是这样的快捷键。
+// 新建标签页（无标题未保存文件）。 原快捷键是 ctrl+n ，但是 ctrl+t 和默认快捷键 ctrl+shift+t 搭配我觉得更合适，而且浏览器也是这样的快捷键。
 { "key": "ctrl+t",					"command": "workbench.action.files.newUntitledFile",
 },
-// 新建文件。 无默认按键，但习惯使用 ctrl+n
+// 新建文件。 无默认热键，但习惯使用 ctrl+n 创建文件。
+// 热键已存在，故添加 when 来增加一点权重。
 { "key": "ctrl+n",					"command": "explorer.newFile",
+									"when": "!isSessionsWindow",
 },
-// 与自定义快捷键冲突
-{ "key": "ctrl+n",					"command": "-workbench.action.files.newUntitledFile",
-},
-// 新建文件夹。 同样没有默认按键。
+// 新建文件夹。 无默认热键。
 { "key": "alt+n",					"command": "explorer.newFolder",
 },
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
+// 选中上一个匹配项。 无默认热键
+// 选中下一个匹配项默认热键是 ctrl+d。
+{ "key": "ctrl+shift+d",			"command": "editor.action.addSelectionToPreviousFindMatch",
+},
 // 移动光标，到达下一个匹配项。 原快捷键是 ctrl+k ctrl+d ，但因为这个快捷键使用频率很高，
 // 特别是和 ctrl+d 这个默认快捷键一起使用时效果奇佳，所以改为 ctrl+e
-// 有一个默认快捷键也是 ctrl+e 但是我基本没用过，添加 when 能够让我的快捷键优先级高于它。
+// 热键已存在，故添加 when 来增加一点权重。
 { "key": "ctrl+e",					"command": "editor.action.moveSelectionToNextFindMatch",
 									"when": "editorFocus", 
 },
-// 移动光标，到达上一个匹配项。 与 ctrl+e 成对。
+// 移动光标，到达上一个匹配项。无默认热键
 { "key": "ctrl+shift+e",			"command": "editor.action.moveSelectionToPreviousFindMatch",
 },
-// 选中上一个匹配项。 与默认快捷键 ctrl+d 搭配使用，效果奇佳！
-{ "key": "ctrl+shift+d",			"command": "editor.action.addSelectionToPreviousFindMatch",
-},
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-// 删除当前行。 默认快捷键是 ctrl+shift+k ，尝试改回原快捷键，但发现不好用，
+// 删除当前行。 默认快捷键是 ctrl+shift+k 不好用
 // 因为需要用到两只手，而 ctrl+shift+x 可以直接单手操作，比 k 方便很多。
 { "key": "ctrl+shift+x",			"command": "editor.action.deleteLines",
 									"when": "textInputFocus && !editorReadonly",
 },
-// 块注释。 oem_2 表示的是 / 按键
+// 块注释。 oem_2 表示的是 / 按键。默认热键是 shift+alt+a
 { "key": "ctrl+shift+oem_2",		"command": "editor.action.blockComment",
 									"when": "editorTextFocus && !editorReadonly",
 },
-// 聚焦到侧边文件栏。oem_3 表示 ` 按键
+// 聚焦到侧边文件栏。oem_3 表示 ` 按键。无默认热键。
 // workbench.files.action.focusFilesExplorer 只是聚焦到文件树
-// workbench.files.action.showActiveFileInExplorer 则是聚焦到文件树中的具体文件，更符合实际需求。
+// workbench.files.action.showActiveFileInExplorer 则是聚焦到文件树中的具体文件，更符合实际需求。但需要注意，文件如果不是工作区文件，则无法在隐藏 open editors 的情况下聚焦到
+// isSessionsWindow 代表的是会话窗口，通常是与AI的聊天框
 { "key": "alt+oem_3",				"command": "workbench.files.action.showActiveFileInExplorer",
+									"when": "editorTextFocus && !isSessionsWindow",
 },
+// 已经聚焦到文件时，再次点击，可以隐藏侧边栏，回到编辑区，当然，如果不想隐藏的话，那就直接回车就行。
+{ "key": "alt+oem_3",				"command": "workbench.action.toggleSidebarVisibility",
+									"when": "activeViewlet == 'workbench.view.explorer' && !inputFocus",
+},
+// py 中混用空格缩进和制表符缩进时，容易报错。提供的格式化工具又不会自动转换缩进类型。而且python语音很少需要格式化，所以直接将格式化快捷键功能修改为将缩进改为 tab。如果想要空格缩进，则用 editor.action.indentationToSpaces
+// { "key": "shift+alt+f",			"command": "editor.action.indentationToTabs",
+// 									"when": "(editorLangId == 'python' || resourceFilename =~ /.*\\.py/i) && !editorHasSelection",
+// },
 
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+// 其他
 ////////////////////////////////////////////////////////////////////////////////
 
-// 容易误触，而且“危害性”大
+// 该热键容易误触，而且“危害性”大，很容易直接关闭所有窗口
 { "key": "ctrl+shift+w",			"command": "-workbench.action.closeWindow",
 },
 ]
