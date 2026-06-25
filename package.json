@@ -1,15 +1,15 @@
 {
-    "name": "linhieng-keymap",
+    "name": "vscode-self",
     "publisher": "linhieng",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "engines": {
         "vscode": "^1.87.0"
     },
-    "displayName": "__ linhieng 自用快捷键",
+    "displayName": "__ linhieng 自用扩展",
     "description": "个人积累的非常有用的快捷键",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Linhieng/vs-keymap.git"
+        "url": "https://github.com/Linhieng/vscode-self.git"
     },
     "categories": [
         "Keymaps"
