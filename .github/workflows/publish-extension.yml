@@ -12,24 +12,31 @@ jobs:
     permissions:
       contents: write # 用于自动创建 GitHub Release
     steps:
-      # 1. 拉取仓库代码
+      # 拉取仓库代码
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      # 提取当前tag对应的CHANGELOG片段
+      - name: 提取当前版本发布日志
+        id: extract-notes
+        uses: ffurrer2/extract-release-notes@v2
+        with:
+          changelog_file: ./CHANGELOG.md # 你的完整日志文件
+          # 会输出 release_notes
 
-      # 2. 配置 Node.js
+      # 配置 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm # 缓存node_modules加速构建
 
-      # 3. 安装所有依赖（含 vsce）
+      # 安装所有依赖（含 vsce）
       - name: Install dependencies
         run: npm ci
 
-      # 4. 执行你package.json中定义的完整发布脚本
+      # 执行package.json中定义的完整发布脚本
       # 自动完成：编译src→dist → dist内打包vsix → dist内发布市场
       - name: Run build & publish script
         env:
@@ -37,16 +44,19 @@ jobs:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: npm run publish
 
-      # 5. 上传打包生成的vsix文件作为制品下载
+      # 上传打包生成的vsix文件作为制品下载
       - name: Upload vsix artifact
         uses: actions/upload-artifact@v4
         with:
           name: extension-vsix
           path: dist/*.vsix
 
-      # 6. 自动创建 GitHub Release 并附加 vsix 包
+      # 自动创建 GitHub Release 并附加 vsix 包
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # AI 给出的向下兼容写法
         with:
           files: dist/*.vsix
-          generate_release_notes: true
+          body: ${{ steps.extract-notes.outputs.release_notes }}
+          generate_release_notes: true # 开启GitHub自动生成提交对比清单
