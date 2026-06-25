@@ -74,7 +74,7 @@ vscode 的快捷键原则:
 // 特别是和 ctrl+d 这个默认快捷键一起使用时效果奇佳，所以改为 ctrl+e
 // 热键已存在，故添加 when 来增加一点权重。
 { "key": "ctrl+e",					"command": "editor.action.moveSelectionToNextFindMatch",
-									"when": "editorFocus", 
+									"when": "editorFocus",
 },
 // 移动光标，到达上一个匹配项。无默认热键
 { "key": "ctrl+shift+e",			"command": "editor.action.moveSelectionToPreviousFindMatch",
@@ -91,14 +91,13 @@ vscode 的快捷键原则:
 },
 // 聚焦到侧边文件栏。oem_3 表示 ` 按键。无默认热键。
 // workbench.files.action.focusFilesExplorer 只是聚焦到文件树
-// workbench.files.action.showActiveFileInExplorer 则是聚焦到文件树中的具体文件，更符合实际需求。但需要注意，文件如果不是工作区文件，则无法在隐藏 open editors 的情况下聚焦到
-// isSessionsWindow 代表的是会话窗口，通常是与AI的聊天框
-{ "key": "alt+oem_3",				"command": "workbench.files.action.showActiveFileInExplorer",
-									"when": "editorTextFocus && !isSessionsWindow",
-},
-// 已经聚焦到文件时，再次点击，可以隐藏侧边栏，回到编辑区，当然，如果不想隐藏的话，那就直接回车就行。
-{ "key": "alt+oem_3",				"command": "workbench.action.toggleSidebarVisibility",
-									"when": "activeViewlet == 'workbench.view.explorer' && !inputFocus",
+// workbench.files.action.showActiveFileInExplorer 聚焦到文件树中的具体文件
+{ "key": "alt+oem_3",				"command": "runCommands",
+									"args": {"commands": [
+										"workbench.files.action.focusFilesExplorer",
+										"workbench.files.action.showActiveFileInExplorer",
+									]},
+									"when": "",
 },
 // py 中混用空格缩进和制表符缩进时，容易报错。提供的格式化工具又不会自动转换缩进类型。而且python语音很少需要格式化，所以直接将格式化快捷键功能修改为将缩进改为 tab。如果想要空格缩进，则用 editor.action.indentationToSpaces
 // { "key": "shift+alt+f",			"command": "editor.action.indentationToTabs",
