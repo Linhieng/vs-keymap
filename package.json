@@ -25,6 +25,7 @@
         "skipLicense": true
     },
     "devDependencies": {
-        "jsonc-parser": "^3.2.1"
+        "@vscode/vsce": "^3.9.2",
+        "jsonc-parser": "^3.3.1"
     }
 }

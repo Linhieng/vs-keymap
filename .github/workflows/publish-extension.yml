@@ -1,0 +1,52 @@
+name: Auto Publish VSCode Extension
+# 触发规则：推送 vx.y.z 格式标签（如 v1.0.2），同时支持手动触发
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write # 用于自动创建 GitHub Release
+    steps:
+      # 1. 拉取仓库代码
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. 配置 Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm # 缓存node_modules加速构建
+
+      # 3. 安装所有依赖（含 vsce）
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. 执行你package.json中定义的完整发布脚本
+      # 自动完成：编译src→dist → dist内打包vsix → dist内发布市场
+      - name: Run build & publish script
+        env:
+          # 仓库Secrets中配置VSCode市场个人令牌，名称VSCE_PAT
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npm run publish
+
+      # 5. 上传打包生成的vsix文件作为制品下载
+      - name: Upload vsix artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-vsix
+          path: dist/*.vsix
+
+      # 6. 自动创建 GitHub Release 并附加 vsix 包
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.vsix
+          generate_release_notes: true
